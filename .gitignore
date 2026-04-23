@@ -8,6 +8,7 @@ biblioteca/.patch/
 
 # ── Variáveis de ambiente ─────────────────────────────────────
 # .env é commitado intencionalmente (contém a URI do MongoDB Atlas)
+.env.example
 .env.local
 .env.*.local
 
@@ -34,11 +35,3 @@ desktop.ini
 .vscode/
 *.swp
 
-# ── Ferramentas de IA ─────────────────────────────────────────
-.claude/
-.specstory/
-.aider/
-.cursor/
-.windsurf/
-.copilot/
-.continue/
