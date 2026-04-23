@@ -10,8 +10,7 @@ Desenvolvido com Java 24, Spring Boot, Thymeleaf e MongoDB Atlas.
 
 ```
 umc-biblioteca/
-├── biblioteca/      → aplicação completa (back-end + telas HTML no mesmo projeto)
-└── docs/            → manual do usuário
+└── biblioteca/      → aplicação completa (back-end + telas HTML no mesmo projeto)
 ```
 
 > O Spring Boot já serve as telas HTML via Thymeleaf — não existe uma aplicação
