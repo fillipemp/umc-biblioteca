@@ -9,7 +9,7 @@ Desenvolvido com Java 24, Spring Boot, Thymeleaf e MongoDB Atlas.
 ## Estrutura do projeto
 
 ```
-Projeto-Biblioteca/
+umc-biblioteca/
 ├── biblioteca/      → aplicação completa (back-end + telas HTML no mesmo projeto)
 └── docs/            → manual do usuário
 ```
