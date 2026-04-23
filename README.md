@@ -101,15 +101,6 @@ mvnw.cmd spring-boot:run      # Windows
 
 ---
 
-### Eclipse
-
-1. **File → Import → Maven → Existing Maven Projects → Next**
-2. Em "Root Directory" selecione a pasta **`biblioteca`** → **Finish**
-3. Botão direito no projeto → **Run As → Maven Build**
-4. No campo "Goals" digite: `spring-boot:run` → **Run**
-
----
-
 Após iniciar, acesse no navegador:
 
 ## [http://localhost:8080](http://localhost:8080)
