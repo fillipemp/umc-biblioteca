@@ -67,6 +67,12 @@ cd umc-biblioteca/biblioteca
 mvnw.cmd spring-boot:run      # Windows
 ```
 
+> **Se você baixou o ZIP pelo GitHub** (botão "Download ZIP"), a pasta extraída se chama
+> `umc-biblioteca-main`. Nesse caso, no passo 2 use:
+> ```bash
+> cd umc-biblioteca-main/biblioteca
+> ```
+
 ---
 
 ### IntelliJ IDEA (Community ou Ultimate)
