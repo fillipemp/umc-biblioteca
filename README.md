@@ -92,8 +92,9 @@ mvnw.cmd spring-boot:run      # Windows
 ### NetBeans
 
 1. Abra o NetBeans
-2. **File → Open Project** → selecione a pasta **`biblioteca`** → **Open Project**
-3. Botão direito no projeto → **Run** (ou **F6**)
+2. **File → Open Project** → selecione a pasta **`biblioteca`**
+3. Marque a opção **Trust Project Build Script** antes de clicar em **Open Project**
+4. Botão direito no projeto → **Run** (ou **F6**)
 
 > Confirme que o NetBeans está usando o JDK 24:
 > **Tools → Java Platforms → JDK 24**
