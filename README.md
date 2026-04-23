@@ -57,11 +57,10 @@ Maven e todas as dependências são baixados automaticamente. Não precisa insta
 
 ```bash
 # 1. Clone o repositório
-git clone <URL-DO-REPOSITORIO>
+git clone https://github.com/fillipemp/umc-biblioteca.git
 
 # 2. Entre na pasta da aplicação
-# (substitua "nome-do-repositorio" pelo nome que apareceu ao clonar)
-cd nome-do-repositorio/biblioteca
+cd umc-biblioteca/biblioteca
 
 # 3. Execute
 ./mvnw spring-boot:run        # Linux / macOS
