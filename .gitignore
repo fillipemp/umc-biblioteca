@@ -1,5 +1,7 @@
 # ── Build ─────────────────────────────────────────────────────
 biblioteca/target/
+biblioteca/build/
+biblioteca/.gradle/
 build/
 out/
 

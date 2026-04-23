@@ -102,7 +102,7 @@ mvnw.cmd spring-boot:run      # Windows
 > **Tools → Java Platforms → JDK 24**
 >
 > Se aparecer erro de conexão com o banco ao rodar, é porque o NetBeans está
-> ignorando o arquivo `.env`. Não se preocupe, a URI do banco já está configurada
+> ignorando o arquivo `.env`. Não se preocupe — a URI do banco já está configurada
 > diretamente no `application.properties` e a aplicação vai conectar normalmente.
 
 ---
