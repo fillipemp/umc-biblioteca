@@ -78,10 +78,13 @@ mvnw.cmd spring-boot:run      # Windows
 
 1. Abra o IntelliJ
 2. **File → Open** → selecione a pasta **`biblioteca`** → **OK**
-3. Aguarde o IntelliJ terminar de indexar o projeto
-4. No canto superior direito aparece a configuração **"Biblioteca"** — clique em **▶ Run**
-
-> A configuração de execução já vem pronta no repositório (`.run/Biblioteca.run.xml`).
+3. Se aparecer a janela **"Trust and Open Project?"**, clique em **Trust Project**
+4. Aguarde o IntelliJ terminar de indexar o projeto
+5. No canto superior direito, clique em **"Current File"** → **Edit Configurations...**
+6. Clique em **+** → **Maven**
+7. No campo **Command line** digite: `spring-boot:run`
+8. Em **Working directory** confirme que está apontando para a pasta `biblioteca`
+9. Clique em **Run**
 
 > Confirme que o IntelliJ está usando o JDK 24:
 > **File → Project Structure → SDK → JDK 24**
@@ -97,6 +100,10 @@ mvnw.cmd spring-boot:run      # Windows
 
 > Confirme que o NetBeans está usando o JDK 24:
 > **Tools → Java Platforms → JDK 24**
+>
+> Se aparecer erro de conexão com o banco ao rodar, é porque o NetBeans está
+> ignorando o arquivo `.env`. Não se preocupe — a URI do banco já está configurada
+> diretamente no `application.properties` e a aplicação vai conectar normalmente.
 
 ---
 
