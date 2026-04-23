@@ -1,0 +1,44 @@
+# ── Build ─────────────────────────────────────────────────────
+biblioteca/target/
+build/
+out/
+
+# ── Patch binário local (gerado pelo iniciar.ps1) ─────────────
+biblioteca/.patch/
+
+# ── Variáveis de ambiente ─────────────────────────────────────
+# .env é commitado intencionalmente (contém a URI do MongoDB Atlas)
+.env.local
+.env.*.local
+
+# ── Java / IDE ────────────────────────────────────────────────
+*.class
+*.iml
+.idea/
+.classpath
+.project
+.settings/
+*.jar
+# Exceção: nenhum jar precisa ser commitado (wrapper usa only-script)
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Sistema operacional ───────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDEs ──────────────────────────────────────────────────────
+.vscode/
+*.swp
+
+# ── Ferramentas de IA ─────────────────────────────────────────
+.claude/
+.specstory/
+.aider/
+.cursor/
+.windsurf/
+.copilot/
+.continue/

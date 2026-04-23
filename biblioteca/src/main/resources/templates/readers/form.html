@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Leitor', content=~{::main})}">
+<main th:with="currentPage='readers'">
+
+    <div class="page-header">
+        <h1 class="page-title" th:text="${reader.id != null} ? 'Editar Leitor' : 'Novo Leitor'">Leitor</h1>
+        <a th:href="@{/readers}" class="btn btn-secondary">← Voltar</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="${action}" method="post" th:object="${reader}">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nome *</label>
+                        <input id="name" type="text" th:field="*{name}" class="form-control"
+                               th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" required/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail *</label>
+                        <input id="email" type="email" th:field="*{email}" class="form-control"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" required/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}"
+                              th:errors="*{email}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cpf">CPF</label>
+                        <input id="cpf" type="text" th:field="*{cpf}" class="form-control"
+                               placeholder="000.000.000-00" maxlength="14" autocomplete="off"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Telefone</label>
+                        <input id="phone" type="text" th:field="*{phone}" class="form-control"
+                               placeholder="(00) 00000-0000" maxlength="15" autocomplete="off"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="active">Status</label>
+                        <select id="active" th:field="*{active}" class="form-control">
+                            <option value="true">Ativo</option>
+                            <option value="false">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/readers}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Máscaras automáticas: CPF e Telefone -->
+    <script>
+    (function () {
+        /* ── CPF: 000.000.000-00 ── */
+        function maskCpf(v) {
+            v = v.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 9)      v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+            else if (v.length > 6) v = v.replace(/^(\d{3})(\d{3})(\d{0,3})/,        '$1.$2.$3');
+            else if (v.length > 3) v = v.replace(/^(\d{3})(\d{0,3})/,               '$1.$2');
+            return v;
+        }
+
+        /* ── Telefone: (00) 0000-0000 ou (00) 00000-0000 ── */
+        function maskPhone(v) {
+            v = v.replace(/\D/g, '').slice(0, 11);
+            if (v.length === 11)
+                v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+            else if (v.length === 10)
+                v = v.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+            else if (v.length > 6)
+                v = v.replace(/^(\d{2})(\d{4,5})(\d{0,4})/, '($1) $2-$3');
+            else if (v.length > 2)
+                v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            else if (v.length > 0)
+                v = v.replace(/^(\d{0,2})/, '($1');
+            return v;
+        }
+
+        function applyMask(inputId, maskFn) {
+            var el = document.getElementById(inputId);
+            if (!el) return;
+
+            /* Aplica máscara no valor já existente (ao editar) */
+            if (el.value) el.value = maskFn(el.value);
+
+            el.addEventListener('input', function () {
+                var pos = el.selectionStart;
+                var before = el.value.length;
+                el.value = maskFn(el.value);
+                /* Corrige cursor após formatação */
+                var diff = el.value.length - before;
+                el.setSelectionRange(pos + diff, pos + diff);
+            });
+
+            /* Garante que só dígitos sejam enviados ao servidor? Não —
+               salvamos com máscara para exibição consistente. */
+        }
+
+        applyMask('cpf',   maskCpf);
+        applyMask('phone', maskPhone);
+    })();
+    </script>
+
+</main>
+</html>

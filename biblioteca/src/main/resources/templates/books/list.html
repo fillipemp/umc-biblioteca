@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Livros', content=~{::main})}">
+<main th:with="currentPage='books'">
+
+    <div class="page-header">
+        <h1 class="page-title">Livros</h1>
+        <a th:href="@{/books/new}" class="btn btn-primary">+ Novo Livro</a>
+    </div>
+
+    <form method="get" th:action="@{/books}" class="search-bar">
+        <input type="text" name="search" class="form-control"
+               placeholder="Buscar por título…" th:value="${search}"/>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a th:if="${search}" th:href="@{/books}" class="btn btn-secondary">Limpar</a>
+    </form>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>ISBN</th>
+                        <th>Gênero</th>
+                        <th>Ano</th>
+                        <th>Total</th>
+                        <th>Disponível</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(books)}">
+                        <td colspan="8">
+                            <div class="empty-state">
+                                <strong>Nenhum livro encontrado</strong>
+                                <p>Clique em "Novo Livro" para cadastrar.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.title}">—</td>
+                        <td th:text="${book.author}">—</td>
+                        <td th:text="${book.isbn ?: '—'}">—</td>
+                        <td th:text="${book.genre ?: '—'}">—</td>
+                        <td th:text="${book.year ?: '—'}">—</td>
+                        <td th:text="${book.totalQuantity}">0</td>
+                        <td>
+                            <span th:class="${book.availableQuantity > 0} ? 'badge badge-green' : 'badge badge-red'"
+                                  th:text="${book.availableQuantity}">0</span>
+                        </td>
+                        <td>
+                            <div class="td-actions">
+                                <a th:href="@{/books/{id}/edit(id=${book.id})}" class="btn btn-sm btn-secondary">Editar</a>
+                                <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post"
+                                      onsubmit="return confirm('Remover livro?')">
+                                    <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</html>

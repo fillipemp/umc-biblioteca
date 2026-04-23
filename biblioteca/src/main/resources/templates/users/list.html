@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Operadores', content=~{::main})}">
+<main th:with="currentPage='users'">
+
+    <div class="page-header">
+        <h1 class="page-title">Operadores do Sistema</h1>
+        <a th:href="@{/users/new}" class="btn btn-primary">+ Novo Operador</a>
+    </div>
+
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Perfil</th>
+                    <th style="width:160px">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td colspan="4" style="text-align:center;color:var(--text-muted);padding:2rem">
+                        Nenhum operador cadastrado.
+                    </td>
+                </tr>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.name}">Nome</td>
+                    <td th:text="${u.email}">email@email.com</td>
+                    <td>
+                        <span class="badge" th:classappend="${u.role == 'ADMIN'} ? 'badge-active' : 'badge-inactive'"
+                              th:text="${u.role == 'ADMIN'} ? 'Administrador' : 'Operador'">Perfil</span>
+                    </td>
+                    <td class="table-actions">
+                        <a th:href="@{/users/{id}/edit(id=${u.id})}" class="btn btn-sm btn-secondary">Editar</a>
+                        <form th:action="@{/users/{id}/delete(id=${u.id})}" method="post"
+                              onsubmit="return confirm('Remover este operador?')">
+                            <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+</html>

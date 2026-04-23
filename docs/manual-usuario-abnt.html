@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Manual do Usuário — SGBP</title>
+<style>
+  @page {
+    size: A4;
+    margin: 3cm 2cm 2cm 3cm;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Capa e folha de rosto */
+  .capa, .folha-rosto {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3cm 2cm 2cm 3cm;
+    page-break-after: always;
+  }
+  .bold-upper { font-weight: bold; text-transform: uppercase; }
+
+  /* Sumário */
+  .sumario {
+    padding: 3cm 2cm 2cm 3cm;
+    page-break-after: always;
+  }
+  .sumario h2 {
+    font-size: 12pt; font-weight: bold;
+    text-transform: uppercase; text-align: center;
+    margin-bottom: 1.5cm;
+  }
+  .sumario ul { list-style: none; padding: 0; }
+  .sumario li {
+    display: flex; justify-content: space-between;
+    padding: 3px 0; font-size: 12pt;
+  }
+  .sumario li .dots {
+    flex: 1; border-bottom: 1px dotted #000;
+    margin: 0 5px 5px;
+  }
+  .sumario li.sub { padding-left: 1cm; }
+
+  /* Páginas */
+  .pagina {
+    padding: 3cm 2cm 2cm 3cm;
+    page-break-after: always;
+  }
+  .pagina-cont {
+    padding: 0 2cm 0 3cm;
+  }
+
+  /* Títulos */
+  h1.sec {
+    font-size: 12pt; font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.6cm;
+  }
+  h2.sub {
+    font-size: 12pt; font-weight: bold;
+    margin-top: 0.7cm; margin-bottom: 0.4cm;
+  }
+
+  /* Texto */
+  p {
+    font-size: 12pt; line-height: 1.5;
+    text-align: justify; text-indent: 1.25cm;
+    margin-bottom: 0.3cm;
+  }
+  p.s { text-indent: 0; }
+
+  ol, ul { margin-left: 1.5cm; margin-bottom: 0.4cm; }
+  li { font-size: 12pt; line-height: 1.7; }
+
+  /* Tabela */
+  table { width: 100%; border-collapse: collapse; margin: 0.4cm 0; font-size: 12pt; }
+  th, td { border: 1px solid #000; padding: 5px 8px; text-align: left; }
+  th { font-weight: bold; }
+
+  /* Caixa de print */
+  .figura {
+    border: 2px dashed #888;
+    background: #f9f9f9;
+    margin: 0.5cm auto;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 12px;
+  }
+  .figura.g { min-height: 7cm; width: 14cm; }
+  .figura.m { min-height: 5cm; width: 14cm; }
+  .figura .fl { font-family: Arial; font-size: 10pt; color: #555; font-weight: bold; }
+  .figura .fi { font-family: Arial; font-size: 9pt; color: #999; margin-top: 6px; }
+  .legenda { font-size: 10pt; text-align: center; margin-top: 4px; margin-bottom: 0.5cm; }
+
+  .aviso {
+    border-left: 3px solid #000; padding: 4px 0 4px 10px;
+    margin: 0.3cm 0 0.3cm 1.25cm; font-size: 11pt;
+  }
+
+  .ref { text-indent: 0; margin-bottom: 0.5cm; text-align: justify; }
+
+  .pg-num { font-family: Arial; font-size: 10pt; text-align: right; margin-bottom: 0.3cm; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="capa">
+  <p class="s bold-upper" style="font-size:12pt">[Nome da Instituição de Ensino]</p>
+  <p class="s" style="text-transform:uppercase; margin-top:4px">[Nome do Curso]</p>
+
+  <div style="flex:1.5"></div>
+
+  <p class="s bold-upper">Fillipe Pereira</p>
+
+  <div style="flex:1.5"></div>
+
+  <p class="s bold-upper" style="font-size:14pt">Manual do Usuário<br/>Sistema de Gerenciamento de Biblioteca</p>
+
+  <div style="flex:3"></div>
+
+  <p class="s">[Cidade] — 2026</p>
+</div>
+
+
+<!-- FOLHA DE ROSTO -->
+<div class="folha-rosto">
+  <p class="s bold-upper">Fillipe Pereira</p>
+
+  <div style="flex:1"></div>
+
+  <p class="s bold-upper" style="font-size:14pt">Manual do Usuário<br/>Sistema de Gerenciamento de Biblioteca</p>
+
+  <div style="flex:0.5"></div>
+
+  <p class="s" style="width:9cm; text-align:justify; margin-left:auto; font-size:12pt">
+    Trabalho entregue como parte da Etapa 3 do projeto prático da disciplina de Desenvolvimento
+    de Sistemas, do curso de Engenharia de Software.<br/><br/>
+    Professor: [Nome do Professor]
+  </p>
+
+  <div style="flex:3"></div>
+
+  <p class="s">[Cidade] — 2026</p>
+</div>
+
+
+<!-- SUMÁRIO -->
+<div class="sumario">
+  <h2>SUMÁRIO</h2>
+  <ul>
+    <li><span>1 INTRODUÇÃO</span><span class="dots"></span><span>4</span></li>
+    <li><span>2 COMO ACESSAR O SISTEMA</span><span class="dots"></span><span>4</span></li>
+    <li><span>3 TELA INICIAL (DASHBOARD)</span><span class="dots"></span><span>5</span></li>
+    <li><span>4 LIVROS</span><span class="dots"></span><span>5</span></li>
+    <li class="sub"><span>4.1 Ver e buscar livros</span><span class="dots"></span><span>5</span></li>
+    <li class="sub"><span>4.2 Cadastrar livro</span><span class="dots"></span><span>6</span></li>
+    <li class="sub"><span>4.3 Editar e remover livro</span><span class="dots"></span><span>6</span></li>
+    <li><span>5 LEITORES</span><span class="dots"></span><span>7</span></li>
+    <li class="sub"><span>5.1 Cadastrar leitor</span><span class="dots"></span><span>7</span></li>
+    <li class="sub"><span>5.2 Editar e remover leitor</span><span class="dots"></span><span>7</span></li>
+    <li><span>6 RESERVAS</span><span class="dots"></span><span>8</span></li>
+    <li class="sub"><span>6.1 Fazer uma reserva</span><span class="dots"></span><span>8</span></li>
+    <li class="sub"><span>6.2 Cancelar uma reserva</span><span class="dots"></span><span>9</span></li>
+    <li><span>7 EMPRÉSTIMOS</span><span class="dots"></span><span>9</span></li>
+    <li><span>8 DEVOLUÇÕES</span><span class="dots"></span><span>10</span></li>
+    <li><span>9 OPERADORES DO SISTEMA</span><span class="dots"></span><span>11</span></li>
+    <li><span>REFERÊNCIAS</span><span class="dots"></span><span>12</span></li>
+  </ul>
+</div>
+
+
+<!-- PÁGINA 4 -->
+<div class="pagina">
+<div class="pg-num">4</div>
+
+<h1 class="sec">1 INTRODUÇÃO</h1>
+
+<p>Este manual mostra como usar o Sistema de Gerenciamento de Biblioteca (SGBP), desenvolvido
+em Java com Spring Boot, Thymeleaf e MongoDB. O sistema controla o acervo de uma biblioteca:
+cadastro de livros e leitores, reservas, empréstimos e devoluções.</p>
+
+<p>O sistema roda no navegador, não precisa instalar nada além do Java. Todas as telas são
+acessadas pelo endereço <strong>http://localhost:8080</strong> após iniciar a aplicação.</p>
+
+<p>Código-fonte: <strong>[INSERIR LINK DO GITHUB]</strong></p>
+
+
+<h1 class="sec" style="margin-top:1cm">2 COMO ACESSAR O SISTEMA</h1>
+
+<p>Antes de acessar, a aplicação precisa estar rodando. No Windows, execute o arquivo
+<strong>iniciar.ps1</strong> na raiz do projeto clicando com o botão direito → "Executar com PowerShell".
+Aguarde a mensagem de inicialização e então abra o navegador em:</p>
+
+<div class="aviso" style="margin-top:0.2cm"><strong>http://localhost:8080</strong></div>
+
+<p>O sistema abre direto na tela de login. Use as credenciais abaixo para o primeiro acesso:</p>
+
+<table>
+  <tr><th>Campo</th><th>Valor</th></tr>
+  <tr><td>E-mail</td><td>admin@admin.com</td></tr>
+  <tr><td>Senha</td><td>Admin@123</td></tr>
+</table>
+
+<div class="figura g" style="margin-top:0.6cm">
+  <span class="fl">Figura 1 — Tela de Login</span>
+  <span class="fi">[ Cole aqui o print da tela de login ]</span>
+</div>
+<p class="legenda">Figura 1 — Tela de login do sistema. Fonte: o autor (2026).</p>
+
+</div><!-- fim página 4 -->
+
+
+<!-- PÁGINA 5 -->
+<div class="pagina">
+<div class="pg-num">5</div>
+
+<h1 class="sec">3 TELA INICIAL (DASHBOARD)</h1>
+
+<p>Após fazer login, o sistema mostra o dashboard. Ele exibe quatro totais em destaque:
+quantos livros estão cadastrados, quantos leitores, quantos empréstimos estão abertos e
+quantas reservas ainda estão pendentes. É uma visão geral rápida da situação da biblioteca.</p>
+
+<p>A navegação entre as telas é feita pelo menu lateral esquerdo, que fica visível em todas
+as páginas.</p>
+
+<div class="figura g">
+  <span class="fl">Figura 2 — Dashboard</span>
+  <span class="fi">[ Cole aqui o print do dashboard — http://localhost:8080/ ]</span>
+</div>
+<p class="legenda">Figura 2 — Tela inicial com resumo do sistema. Fonte: o autor (2026).</p>
+
+
+<h1 class="sec" style="margin-top:0.6cm">4 LIVROS</h1>
+
+<h2 class="sub">4.1 Ver e buscar livros</h2>
+
+<p>Clique em <strong>Livros</strong> no menu lateral. A tela mostra todos os livros cadastrados
+em uma tabela com: título, autor, ISBN, ano, quantidade total de exemplares e quantidade
+disponível para empréstimo.</p>
+
+<p>Para buscar um livro específico, digite qualquer palavra no campo de busca e a lista
+filtra automaticamente.</p>
+
+<div class="figura m">
+  <span class="fl">Figura 3 — Lista de Livros</span>
+  <span class="fi">[ Cole aqui o print da lista de livros — http://localhost:8080/books ]</span>
+</div>
+<p class="legenda">Figura 3 — Lista de livros com campo de busca. Fonte: o autor (2026).</p>
+
+</div><!-- fim página 5 -->
+
+
+<!-- PÁGINA 6 -->
+<div class="pagina">
+<div class="pg-num">6</div>
+
+<h2 class="sub" style="margin-top:0">4.2 Cadastrar livro</h2>
+
+<p>Na lista de livros, clique em <strong>+ Novo Livro</strong>. Preencha o formulário e clique em <strong>Salvar</strong>.</p>
+
+<table>
+  <tr><th>Campo</th><th>Obrigatório</th><th>Observação</th></tr>
+  <tr><td>Título</td><td>Sim</td><td>—</td></tr>
+  <tr><td>Autor</td><td>Sim</td><td>—</td></tr>
+  <tr><td>ISBN</td><td>Não</td><td>Ex.: 978-85-7522-123-4</td></tr>
+  <tr><td>Gênero</td><td>Não</td><td>—</td></tr>
+  <tr><td>Ano de publicação</td><td>Não</td><td>—</td></tr>
+  <tr><td>Quantidade total</td><td>Sim</td><td>A quantidade disponível começa igual a este valor</td></tr>
+</table>
+
+<div class="figura g" style="margin-top:0.4cm">
+  <span class="fl">Figura 4 — Formulário de Cadastro de Livro</span>
+  <span class="fi">[ Cole aqui o print do formulário — http://localhost:8080/books/new ]</span>
+</div>
+<p class="legenda">Figura 4 — Formulário de cadastro de livro. Fonte: o autor (2026).</p>
+
+<h2 class="sub">4.3 Editar e remover livro</h2>
+
+<p>Na lista de livros, cada linha tem os botões <strong>Editar</strong> e <strong>Remover</strong>.
+O <em>Editar</em> abre o mesmo formulário já preenchido. O <em>Remover</em> pede confirmação
+antes de apagar o registro.</p>
+
+</div><!-- fim página 6 -->
+
+
+<!-- PÁGINA 7 -->
+<div class="pagina">
+<div class="pg-num">7</div>
+
+<h1 class="sec">5 LEITORES</h1>
+
+<p>O módulo de leitores cadastra as pessoas que usam a biblioteca — quem pode fazer reservas
+e pegar livros emprestados. Acesse clicando em <strong>Usuários/Leitores</strong> no menu.</p>
+
+<h2 class="sub">5.1 Cadastrar leitor</h2>
+
+<p>Clique em <strong>+ Novo Leitor</strong> e preencha o formulário:</p>
+
+<table>
+  <tr><th>Campo</th><th>Obrigatório</th><th>Observação</th></tr>
+  <tr><td>Nome</td><td>Sim</td><td>—</td></tr>
+  <tr><td>E-mail</td><td>Sim</td><td>Deve ser único no sistema</td></tr>
+  <tr><td>CPF</td><td>Não</td><td>A máscara 000.000.000-00 é aplicada automaticamente</td></tr>
+  <tr><td>Telefone</td><td>Não</td><td>A máscara (00) 00000-0000 é aplicada automaticamente</td></tr>
+  <tr><td>Status</td><td>Sim</td><td>Ativo ou Inativo</td></tr>
+</table>
+
+<div class="figura g" style="margin-top:0.4cm">
+  <span class="fl">Figura 5 — Formulário de Cadastro de Leitor</span>
+  <span class="fi">[ Cole aqui o print do formulário — http://localhost:8080/readers/new ]</span>
+</div>
+<p class="legenda">Figura 5 — Formulário de cadastro de leitor. Fonte: o autor (2026).</p>
+
+<h2 class="sub">5.2 Editar e remover leitor</h2>
+
+<p>Na lista de leitores, use <strong>Editar</strong> para alterar os dados ou
+<strong>Remover</strong> para excluir o registro (pede confirmação).</p>
+
+</div><!-- fim página 7 -->
+
+
+<!-- PÁGINA 8 -->
+<div class="pagina">
+<div class="pg-num">8</div>
+
+<h1 class="sec">6 RESERVAS</h1>
+
+<p>A reserva serve para o leitor garantir um livro antes de ir buscá-lo. Ela <strong>não
+desconta o estoque</strong> — só o empréstimo faz isso. Cada reserva tem validade de
+<strong>3 dias</strong>; depois desse prazo ela expira automaticamente.</p>
+
+<h2 class="sub">6.1 Fazer uma reserva</h2>
+
+<ol>
+  <li>No menu lateral, clique em <strong>Reservas</strong>;</li>
+  <li>Clique em <strong>+ Nova Reserva</strong>;</li>
+  <li>Escolha o livro na lista — só aparecem livros com exemplares disponíveis;</li>
+  <li>Escolha o leitor;</li>
+  <li>Clique em <strong>Criar Reserva</strong>.</li>
+</ol>
+
+<div class="figura g">
+  <span class="fl">Figura 6 — Formulário de Nova Reserva</span>
+  <span class="fi">[ Cole aqui o print do formulário — http://localhost:8080/reservations/new ]</span>
+</div>
+<p class="legenda">Figura 6 — Formulário de criação de reserva. Fonte: o autor (2026).</p>
+
+</div><!-- fim página 8 -->
+
+
+<!-- PÁGINA 9 -->
+<div class="pagina">
+<div class="pg-num">9</div>
+
+<h2 class="sub" style="margin-top:0">6.2 Cancelar uma reserva</h2>
+
+<p>Na lista de reservas, as que ainda estão <em>Pendentes</em> mostram o botão
+<strong>Cancelar</strong>. Ao cancelar, o livro continua disponível para outros leitores.</p>
+
+<div class="figura m">
+  <span class="fl">Figura 7 — Lista de Reservas</span>
+  <span class="fi">[ Cole aqui o print da lista de reservas — http://localhost:8080/reservations ]</span>
+</div>
+<p class="legenda">Figura 7 — Lista de reservas com opção de cancelamento. Fonte: o autor (2026).</p>
+
+
+<h1 class="sec" style="margin-top:0.8cm">7 EMPRÉSTIMOS</h1>
+
+<p>O empréstimo registra quando um leitor leva um livro. Ao confirmar, o sistema
+<strong>desconta 1 exemplar disponível</strong> e define automaticamente o prazo de
+devolução para <strong>14 dias</strong>.</p>
+
+<p>Para registrar um empréstimo:</p>
+<ol>
+  <li>Clique em <strong>Empréstimos</strong> no menu lateral;</li>
+  <li>Clique em <strong>+ Novo Empréstimo</strong>;</li>
+  <li>Selecione o livro (só aparecem livros com exemplares disponíveis);</li>
+  <li>Selecione o leitor;</li>
+  <li>Clique em <strong>Registrar Empréstimo</strong>.</li>
+</ol>
+
+<div class="figura g">
+  <span class="fl">Figura 8 — Formulário de Novo Empréstimo</span>
+  <span class="fi">[ Cole aqui o print do formulário — http://localhost:8080/loans/new ]</span>
+</div>
+<p class="legenda">Figura 8 — Formulário de registro de empréstimo. Fonte: o autor (2026).</p>
+
+</div><!-- fim página 9 -->
+
+
+<!-- PÁGINA 10 -->
+<div class="pagina">
+<div class="pg-num">10</div>
+
+<p>A lista de empréstimos mostra todos os registros com o status de cada um:</p>
+<ul>
+  <li><strong>Ativo</strong> — dentro do prazo;</li>
+  <li><strong>Em Atraso</strong> — prazo vencido e ainda não devolvido;</li>
+  <li><strong>Devolvido</strong> — já foi devolvido.</li>
+</ul>
+
+<div class="figura m" style="margin-top:0.4cm">
+  <span class="fl">Figura 9 — Lista de Empréstimos</span>
+  <span class="fi">[ Cole aqui o print da lista de empréstimos — http://localhost:8080/loans ]</span>
+</div>
+<p class="legenda">Figura 9 — Lista de empréstimos com status. Fonte: o autor (2026).</p>
+
+
+<h1 class="sec" style="margin-top:0.6cm">8 DEVOLUÇÕES</h1>
+
+<p>A tela de devoluções lista só os empréstimos que ainda estão em aberto (ativos ou
+em atraso). Para registrar a devolução de um livro:</p>
+
+<ol>
+  <li>Clique em <strong>Devoluções</strong> no menu lateral;</li>
+  <li>Encontre o empréstimo na lista;</li>
+  <li>Clique em <strong>Registrar Devolução</strong> e confirme.</li>
+</ol>
+
+<p>Ao confirmar, o sistema <strong>soma 1 de volta ao estoque disponível</strong> do livro e
+marca o empréstimo como <em>Devolvido</em>.</p>
+
+<div class="figura g">
+  <span class="fl">Figura 10 — Tela de Devoluções</span>
+  <span class="fi">[ Cole aqui o print da tela de devoluções — http://localhost:8080/returns ]</span>
+</div>
+<p class="legenda">Figura 10 — Tela de registro de devolução. Fonte: o autor (2026).</p>
+
+</div><!-- fim página 10 -->
+
+
+<!-- PÁGINA 11 -->
+<div class="pagina">
+<div class="pg-num">11</div>
+
+<h1 class="sec">9 OPERADORES DO SISTEMA</h1>
+
+<p>Operadores são as pessoas que têm login no sistema — os funcionários que acessam
+e gerenciam a biblioteca. Esse módulo fica na seção <em>Administração</em> do menu lateral,
+em <strong>Operadores</strong>.</p>
+
+<p>Cada operador tem nome, e-mail, senha (criptografada) e um perfil: <em>Administrador</em>
+(acesso total) ou <em>Operador</em> (acesso padrão).</p>
+
+<div class="figura m">
+  <span class="fl">Figura 11 — Lista de Operadores</span>
+  <span class="fi">[ Cole aqui o print da lista de operadores — http://localhost:8080/users ]</span>
+</div>
+<p class="legenda">Figura 11 — Lista de operadores do sistema. Fonte: o autor (2026).</p>
+
+<h2 class="sub">9.1 Cadastrar operador</h2>
+
+<p>Clique em <strong>+ Novo Operador</strong>, preencha nome, e-mail, perfil e senha
+(mínimo 6 caracteres). Confirme a senha no segundo campo e salve.</p>
+
+<div class="figura g">
+  <span class="fl">Figura 12 — Formulário de Novo Operador</span>
+  <span class="fi">[ Cole aqui o print do formulário — http://localhost:8080/users/new ]</span>
+</div>
+<p class="legenda">Figura 12 — Formulário de cadastro de operador. Fonte: o autor (2026).</p>
+
+<h2 class="sub">9.2 Editar operador</h2>
+
+<p>Clique em <strong>Editar</strong> na linha do operador. Se não quiser trocar a senha,
+deixe os campos de senha em branco — o sistema mantém a senha atual. Para trocar, preencha
+a nova senha e confirme.</p>
+
+</div><!-- fim página 11 -->
+
+
+<!-- PÁGINA 12 — REFERÊNCIAS -->
+<div class="pagina">
+<div class="pg-num">12</div>
+
+<h1 class="sec">REFERÊNCIAS</h1>
+
+<p class="s ref">PIVOTAL SOFTWARE. <strong>Spring Boot Reference Documentation.</strong>
+Versão 3.5. Disponível em: &lt;https://docs.spring.io/spring-boot/docs/3.5.0/reference/html/&gt;.
+Acesso em: abr. 2026.</p>
+
+<p class="s ref">THYMELEAF. <strong>Thymeleaf + Spring.</strong> Disponível em:
+&lt;https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html&gt;. Acesso em: abr. 2026.</p>
+
+<p class="s ref">MONGODB, INC. <strong>MongoDB Atlas Documentation.</strong> Disponível em:
+&lt;https://www.mongodb.com/docs/atlas/&gt;. Acesso em: abr. 2026.</p>
+
+<p class="s ref">SPRING SECURITY. <strong>Spring Security Reference.</strong> Disponível em:
+&lt;https://docs.spring.io/spring-security/reference/&gt;. Acesso em: abr. 2026.</p>
+
+<p class="s ref">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 6023:</strong>
+informação e documentação — referências — elaboração. Rio de Janeiro: ABNT, 2018.</p>
+
+<p class="s ref">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 14724:</strong>
+informação e documentação — trabalhos acadêmicos — apresentação. Rio de Janeiro: ABNT, 2011.</p>
+
+</div>
+
+</body>
+</html>

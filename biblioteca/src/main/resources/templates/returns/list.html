@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Devoluções', content=~{::main})}">
+<main th:with="currentPage='returns'">
+
+    <div class="page-header">
+        <h1 class="page-title">Devoluções</h1>
+    </div>
+
+    <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem">
+        Empréstimos ativos aguardando devolução.
+    </p>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Livro</th>
+                        <th>Leitor</th>
+                        <th>Data Empréstimo</th>
+                        <th>Devolução Prevista</th>
+                        <th>Situação</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(activeLoans)}">
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <strong>Nenhum empréstimo ativo</strong>
+                                <p>Todos os livros foram devolvidos.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="loan : ${activeLoans}">
+                        <td th:text="${loan.bookTitle}">—</td>
+                        <td th:text="${loan.readerName}">—</td>
+                        <td th:text="${#temporals.format(loan.loanDate,'dd/MM/yyyy')}">—</td>
+                        <td th:text="${#temporals.format(loan.expectedReturnDate,'dd/MM/yyyy')}">—</td>
+                        <td>
+                            <!-- Marca em atraso se passou da data prevista -->
+                            <span th:if="${loan.expectedReturnDate.isBefore(#temporals.createToday())}"
+                                  class="badge badge-red">Em Atraso</span>
+                            <span th:unless="${loan.expectedReturnDate.isBefore(#temporals.createToday())}"
+                                  class="badge badge-yellow">No Prazo</span>
+                        </td>
+                        <td>
+                            <form th:action="@{/returns/{id}(id=${loan.id})}" method="post"
+                                  onsubmit="return confirm('Confirmar devolução?')">
+                                <button type="submit" class="btn btn-sm btn-primary">Registrar Devolução</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</html>

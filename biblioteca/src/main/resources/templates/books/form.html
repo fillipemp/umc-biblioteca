@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Livro', content=~{::main})}">
+<main th:with="currentPage='books'">
+
+    <div class="page-header">
+        <h1 class="page-title" th:text="${book.id != null} ? 'Editar Livro' : 'Novo Livro'">Livro</h1>
+        <a th:href="@{/books}" class="btn btn-secondary">← Voltar</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="${action}" method="post" th:object="${book}">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="title">Título *</label>
+                        <input id="title" type="text" th:field="*{title}" class="form-control"
+                               th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" required/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}"
+                              th:errors="*{title}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="author">Autor *</label>
+                        <input id="author" type="text" th:field="*{author}" class="form-control"
+                               th:classappend="${#fields.hasErrors('author')} ? 'is-invalid'" required/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('author')}"
+                              th:errors="*{author}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="isbn">ISBN</label>
+                        <input id="isbn" type="text" th:field="*{isbn}" class="form-control" placeholder="978-..."/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="genre">Gênero</label>
+                        <input id="genre" type="text" th:field="*{genre}" class="form-control"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="year">Ano de Publicação</label>
+                        <input id="year" type="number" th:field="*{year}" class="form-control"
+                               min="1000" max="2100"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="totalQuantity">Quantidade Total *</label>
+                        <input id="totalQuantity" type="number" th:field="*{totalQuantity}"
+                               class="form-control" min="0" required/>
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('totalQuantity')}"
+                              th:errors="*{totalQuantity}"></span>
+                    </div>
+
+                    <!-- Só exibe disponível na edição; na criação é definido automaticamente -->
+                    <div class="form-group" th:if="${book.id != null}">
+                        <label class="form-label" for="availableQuantity">Quantidade Disponível</label>
+                        <input id="availableQuantity" type="number" th:field="*{availableQuantity}"
+                               class="form-control" min="0"/>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a th:href="@{/books}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+</html>

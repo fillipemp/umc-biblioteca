@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- =====================================================================
+     Fragment: layout  — usado por todas as páginas internas
+     Uso: <html th:replace="~{fragments/layout :: page(title='Título', content=~{::main})}">
+     ===================================================================== -->
+
+<th:block th:fragment="page(title, content)">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${title} + ' — Biblioteca'">Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-icon">📚</div>
+            <span class="sidebar-logo-text">Biblioteca</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <span class="nav-section-label">Menu</span>
+
+            <a th:href="@{/}" class="nav-item" th:classappend="${currentPage == 'dashboard'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </a>
+
+            <a th:href="@{/books}" class="nav-item" th:classappend="${currentPage == 'books'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                Livros
+            </a>
+
+            <a th:href="@{/readers}" class="nav-item" th:classappend="${currentPage == 'readers'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Usuários/Leitores
+            </a>
+
+            <a th:href="@{/reservations}" class="nav-item" th:classappend="${currentPage == 'reservations'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Reservas
+            </a>
+
+            <a th:href="@{/loans}" class="nav-item" th:classappend="${currentPage == 'loans'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                Empréstimos
+            </a>
+
+            <a th:href="@{/returns}" class="nav-item" th:classappend="${currentPage == 'returns'} ? 'active'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+                Devoluções
+            </a>
+
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <span class="nav-section-label" style="margin-top:1rem">Administração</span>
+                <a th:href="@{/users}" class="nav-item" th:classappend="${currentPage == 'users'} ? 'active'">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                    Operadores
+                </a>
+            </th:block>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="sidebar-user-avatar" sec:authentication="name" th:text="${#strings.substring(#authentication.name, 0, 2).toUpperCase()}">AD</div>
+                <span class="sidebar-user-name" sec:authentication="name">admin@admin.com</span>
+            </div>
+            <form th:action="@{/logout}" method="post" style="margin-top:0.5rem">
+                <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    Sair
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main-area">
+        <header class="topbar">
+            <span class="topbar-title" th:text="${title}">Página</span>
+        </header>
+
+        <main class="page-content">
+            <!-- Flash messages -->
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}"   class="alert alert-error"   th:text="${error}"></div>
+
+            <!-- Conteúdo injetado pela página -->
+            <th:block th:replace="${content}"/>
+        </main>
+    </div>
+</div>
+</body>
+</html>
+</th:block>
+
+</html>

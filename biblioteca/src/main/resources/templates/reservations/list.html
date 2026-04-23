@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Reservas', content=~{::main})}">
+<main th:with="currentPage='reservations'">
+
+    <div class="page-header">
+        <h1 class="page-title">Reservas</h1>
+        <a th:href="@{/reservations/new}" class="btn btn-primary">+ Nova Reserva</a>
+    </div>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Livro</th>
+                        <th>Leitor</th>
+                        <th>Data Reserva</th>
+                        <th>Validade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(reservations)}">
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <strong>Nenhuma reserva encontrada</strong>
+                                <p>Clique em "Nova Reserva" para registrar.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="r : ${reservations}">
+                        <td th:text="${r.bookTitle}">—</td>
+                        <td th:text="${r.readerName}">—</td>
+                        <td th:text="${#temporals.format(r.reservationDate,'dd/MM/yyyy')}">—</td>
+                        <td th:text="${#temporals.format(r.expirationDate,'dd/MM/yyyy')}">—</td>
+                        <td>
+                            <span th:switch="${r.status.name()}">
+                                <span th:case="'PENDING'"   class="badge badge-yellow">Pendente</span>
+                                <span th:case="'CONVERTED'" class="badge badge-blue">Convertida</span>
+                                <span th:case="'CANCELLED'" class="badge badge-gray">Cancelada</span>
+                            </span>
+                        </td>
+                        <td>
+                            <form th:if="${r.status.name() == 'PENDING'}"
+                                  th:action="@{/reservations/{id}/cancel(id=${r.id})}" method="post"
+                                  onsubmit="return confirm('Cancelar reserva?')">
+                                <button type="submit" class="btn btn-sm btn-danger">Cancelar</button>
+                            </form>
+                            <span th:if="${r.status.name() != 'PENDING'}" class="badge badge-gray">—</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</html>

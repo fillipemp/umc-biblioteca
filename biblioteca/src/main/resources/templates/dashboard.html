@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Dashboard', content=~{::main})}">
+<main>
+    <th:block th:fragment="currentPage" th:with="currentPage='dashboard'"/>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">📚 Livros Cadastrados</div>
+            <div class="stat-value" th:text="${totalBooks}">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">👥 Leitores Cadastrados</div>
+            <div class="stat-value" th:text="${totalReaders}">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">✅ Empréstimos Ativos</div>
+            <div class="stat-value" th:text="${activeLoans}">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">📅 Total de Reservas</div>
+            <div class="stat-value" th:text="${totalReservations}">0</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Acesso Rápido</span>
+        </div>
+        <div class="card-body" style="display:flex;gap:0.75rem;flex-wrap:wrap">
+            <a th:href="@{/books/new}"        class="btn btn-primary">+ Novo Livro</a>
+            <a th:href="@{/readers/new}"      class="btn btn-primary">+ Novo Leitor</a>
+            <a th:href="@{/reservations/new}" class="btn btn-secondary">+ Nova Reserva</a>
+            <a th:href="@{/loans/new}"        class="btn btn-secondary">+ Novo Empréstimo</a>
+            <a th:href="@{/returns}"          class="btn btn-secondary">Registrar Devolução</a>
+        </div>
+    </div>
+</main>
+</html>

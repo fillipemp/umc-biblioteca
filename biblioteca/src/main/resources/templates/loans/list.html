@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Empréstimos', content=~{::main})}">
+<main th:with="currentPage='loans'">
+
+    <div class="page-header">
+        <h1 class="page-title">Empréstimos</h1>
+        <a th:href="@{/loans/new}" class="btn btn-primary">+ Novo Empréstimo</a>
+    </div>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Livro</th>
+                        <th>Leitor</th>
+                        <th>Data Empréstimo</th>
+                        <th>Devolução Prevista</th>
+                        <th>Devolução Real</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(loans)}">
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <strong>Nenhum empréstimo encontrado</strong>
+                                <p>Clique em "Novo Empréstimo" para registrar.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="loan : ${loans}">
+                        <td th:text="${loan.bookTitle}">—</td>
+                        <td th:text="${loan.readerName}">—</td>
+                        <td th:text="${#temporals.format(loan.loanDate,'dd/MM/yyyy')}">—</td>
+                        <td th:text="${#temporals.format(loan.expectedReturnDate,'dd/MM/yyyy')}">—</td>
+                        <td th:text="${loan.actualReturnDate != null} ? ${#temporals.format(loan.actualReturnDate,'dd/MM/yyyy')} : '—'">—</td>
+                        <td>
+                            <span th:switch="${loan.status.name()}">
+                                <span th:case="'ACTIVE'"   class="badge badge-yellow">Ativo</span>
+                                <span th:case="'RETURNED'" class="badge badge-green">Devolvido</span>
+                                <span th:case="'OVERDUE'"  class="badge badge-red">Em Atraso</span>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</html>

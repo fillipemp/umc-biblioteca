@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Usuários / Leitores', content=~{::main})}">
+<main th:with="currentPage='readers'">
+
+    <div class="page-header">
+        <h1 class="page-title">Usuários / Leitores</h1>
+        <a th:href="@{/readers/new}" class="btn btn-primary">+ Novo Leitor</a>
+    </div>
+
+    <form method="get" th:action="@{/readers}" class="search-bar">
+        <input type="text" name="search" class="form-control"
+               placeholder="Buscar por nome…" th:value="${search}"/>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a th:if="${search}" th:href="@{/readers}" class="btn btn-secondary">Limpar</a>
+    </form>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(readers)}">
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <strong>Nenhum leitor encontrado</strong>
+                                <p>Clique em "Novo Leitor" para cadastrar.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="reader : ${readers}">
+                        <td th:text="${reader.name}">—</td>
+                        <td th:text="${reader.email}">—</td>
+                        <td th:text="${reader.cpf ?: '—'}">—</td>
+                        <td th:text="${reader.phone ?: '—'}">—</td>
+                        <td>
+                            <span th:class="${reader.active} ? 'badge badge-green' : 'badge badge-gray'"
+                                  th:text="${reader.active} ? 'Ativo' : 'Inativo'">Ativo</span>
+                        </td>
+                        <td>
+                            <div class="td-actions">
+                                <a th:href="@{/readers/{id}/edit(id=${reader.id})}" class="btn btn-sm btn-secondary">Editar</a>
+                                <form th:action="@{/readers/{id}/delete(id=${reader.id})}" method="post"
+                                      onsubmit="return confirm('Remover leitor?')">
+                                    <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</html>

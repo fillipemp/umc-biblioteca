@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: page(title='Novo Empréstimo', content=~{::main})}">
+<main th:with="currentPage='loans'">
+
+    <div class="page-header">
+        <h1 class="page-title">Novo Empréstimo</h1>
+        <a th:href="@{/loans}" class="btn btn-secondary">← Voltar</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/loans}" method="post">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="bookId">Livro *</label>
+                        <select id="bookId" name="bookId" class="form-control" required>
+                            <option value="">Selecione um livro…</option>
+                            <option th:each="book : ${books}"
+                                    th:value="${book.id}"
+                                    th:text="${book.title + ' (' + book.availableQuantity + ' disponível)'}"
+                                    th:disabled="${book.availableQuantity == 0}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="readerId">Leitor *</label>
+                        <select id="readerId" name="readerId" class="form-control" required>
+                            <option value="">Selecione um leitor…</option>
+                            <option th:each="reader : ${readers}"
+                                    th:value="${reader.id}"
+                                    th:text="${reader.name + ' — ' + reader.email}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem">
+                    Prazo padrão: 14 dias. O estoque é reduzido imediatamente ao confirmar.
+                </p>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Registrar Empréstimo</button>
+                    <a th:href="@{/loans}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+</html>
